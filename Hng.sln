@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HngStageOne", "HngStageOne\HngStageOne.csproj", "{F2F13AAE-3F28-4F70-A07D-EB4A4F02A6AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2F13AAE-3F28-4F70-A07D-EB4A4F02A6AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2F13AAE-3F28-4F70-A07D-EB4A4F02A6AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2F13AAE-3F28-4F70-A07D-EB4A4F02A6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2F13AAE-3F28-4F70-A07D-EB4A4F02A6AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39EDAD82-D74F-4061-A6AE-67FC9EA86BC5}
+	EndGlobalSection
+EndGlobal
