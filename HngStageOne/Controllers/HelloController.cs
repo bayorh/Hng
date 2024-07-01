@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Text.Json;
 
 namespace HngStageOne.Controllers
@@ -50,9 +51,15 @@ namespace HngStageOne.Controllers
             if (context.Request.Headers.ContainsKey("X-Forwarded-For"))
             {
                 ipAddress = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-            }
 
-            return ipAddress;
+            }
+            if (ipAddress == null)
+            {
+                return "ip is null";
+            }
+            string[] splitIPs = ipAddress.Split(", ");
+            string localIP = splitIPs[0];
+            return localIP;
         }
         private string token = "900c452ab7bb0c";
         private async Task<string> GetLocation(string ipAddress)
