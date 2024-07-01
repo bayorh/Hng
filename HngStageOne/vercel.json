@@ -5,7 +5,7 @@
       "src": "HngStageOne.csproj",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "bin/Release/net8.0/HngStageOne.dll"
+        "distDir": "bin/Release/net8.0/publish"
       }
     }
   ],
