@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "HngStageOne.csproj",
+      "src": "build.sh",
       "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "HngStageOne.dll"
+      "dest": "publish_output/HngStageOne.dll"
     }
   ]
 }
