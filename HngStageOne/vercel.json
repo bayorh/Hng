@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "HngStageOne.csproj",
-      "use": "@vercel/dotnet"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "bin/Release/net8.0/HngStageOne.dll"
+      }
     }
   ],
   "routes": [
