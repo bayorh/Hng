@@ -1,0 +1,19 @@
+# Arduino specific files
+*.ino.*
+*.cpp.*
+*.h.*
+.vscode/
+.idea/
+.DS_Store
+.pio/
+.build/
+.ccls-cache/
+.clangd/
+build/
+out/
+
+# others
+.vs/
+bin/
+docker-compose.dcproj
+obj/
