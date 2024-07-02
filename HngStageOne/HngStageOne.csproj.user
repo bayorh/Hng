@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>Container (Dockerfile)</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\Users\OWNER\Desktop\Project\Hng\HngStageOne\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\OWNER\Desktop\Project\Hng\HngStageOne\Properties\PublishProfiles\hardhe-001-site1 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
