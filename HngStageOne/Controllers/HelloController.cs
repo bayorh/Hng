@@ -19,20 +19,22 @@ namespace HngStageOne.Controllers
         }
         private class HelloModel
         {
-            public string Ip { get; set; }
-
-
-            [JsonPropertyName("city")]
-            public string city { get; set; }
+            public string client_ip { get; set; }
+            public string location { get; set; }
             public string greeting { get; set; }
-
-
-
+                         
+  
         };
         private class WeatherResponse
         {
             [JsonPropertyName("current")]
             public Current current { get; set; }
+
+        }
+        private class LocationResponse
+        {
+            [JsonPropertyName("city")]
+            public string city { get; set; }
 
         }
         private class Current
@@ -69,8 +71,8 @@ namespace HngStageOne.Controllers
             }
             var response = new HelloModel
             {
-                Ip = _ipAddress,
-                city = _location,
+                client_ip = _ipAddress,
+                location = _location,
                 greeting = $"Hello, {visitor_name}!, the temperature is {_temperature} degrees Celcius in  {_location}",
 
             };
@@ -103,7 +105,7 @@ namespace HngStageOne.Controllers
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<HelloModel>(json);
+            var result = JsonConvert.DeserializeObject<LocationResponse>(json);
             return result.city;
 
         }
