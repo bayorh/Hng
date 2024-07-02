@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.HttpOverrides;
+
 namespace HngStageOne
 {
     public class Program
@@ -8,6 +10,11 @@ namespace HngStageOne
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsConfig",
@@ -25,7 +32,8 @@ namespace HngStageOne
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
+            app.UseForwardedHeaders();
+           
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

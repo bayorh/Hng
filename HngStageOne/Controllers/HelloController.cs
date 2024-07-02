@@ -26,14 +26,14 @@ namespace HngStageOne.Controllers
             public string city { get; set; }
             public string greeting { get; set; }
 
-           
+
 
         };
         private class WeatherResponse
         {
-           [JsonPropertyName("current")]
+            [JsonPropertyName("current")]
             public Current current { get; set; }
-           
+
         }
         private class Current
         {
@@ -46,60 +46,66 @@ namespace HngStageOne.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string visitor_name)
         {
-
-            var _ipAddress = GeIpAddress(HttpContext);
-            var _location = await GetLocation(_ipAddress);
-            var _temperature =  await GetTemperatureAsync(_location);
-
             if (string.IsNullOrEmpty(visitor_name))
             {
                 throw new Exception("Visitor name is required.");
+            }
+
+
+            string _ipAddress = string.Empty;
+            string _location = string.Empty;
+            double _temperature;
+            try
+            {
+                _ipAddress = GetClientIpAddress(HttpContext);
+                var ipAddressWithoutPort = _ipAddress?.Split(':')[0];
+                _location = await GetLocation(ipAddressWithoutPort);
+                _temperature = await GetTemperatureAsync(ipAddressWithoutPort);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"unable to retrieve location from ip {_ipAddress} supplied, with" +
+                    $"error message {ex.Message} ");
             }
             var response = new HelloModel
             {
                 Ip = _ipAddress,
                 city = _location,
                 greeting = $"Hello, {visitor_name}!, the temperature is {_temperature} degrees Celcius in  {_location}",
-                                               
+
             };
 
             return Ok(response);
         }
-        private string GeIpAddress(HttpContext context)
-
+        private string GetClientIpAddress(HttpContext context)
         {
-            var ipAddress = context.Connection.RemoteIpAddress.ToString();
+            var ip = context.Connection.RemoteIpAddress?.ToString();
 
             if (context.Request.Headers.ContainsKey("X-Forwarded-For"))
             {
-                ipAddress = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-
+                ip = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
             }
-            if (ipAddress == null)
+            // Handle IPv4 and IPv6 loopback addresses
+            if (ip == "::1" || ip == "127.0.0.1" || ip.StartsWith("::ffff:"))
             {
-                return "ip is null";
+                ip = "102.89.23.181"; 
             }
-            string[] splitIPs = ipAddress.Split(", ");
-            string localIP = splitIPs[0];
-            return localIP;
+
+            return ip;
         }
+
         private string token = "900c452ab7bb0c";
         private async Task<string> GetLocation(string ipAddress)
         {
 
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync($"http://ipinfo.io/{ipAddress}/json?token={token}");
+            response.EnsureSuccessStatusCode();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<HelloModel>(json);
-                return result.city;
-            }
-            else
-            {
-                return "Unknown";
-            }
+            var json = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<HelloModel>(json);
+            return result.city;
+
         }
 
         private string wearherapiToken = "48a09036c1f949b294e175417240107";
